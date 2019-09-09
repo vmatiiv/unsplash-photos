@@ -5,7 +5,7 @@ import './ImageCard.css';
 class ImageCard extends React.Component{
 
     onLoadin(arr){
-        if(arr.length==0){
+        if(arr.length===0){
             return (<div className="loading"> waiting on fetch data</div>)
         }
             const photos = arr.map(x=><ImageItem key={x.id} photo={x}/>)
@@ -17,7 +17,7 @@ class ImageCard extends React.Component{
     render(){
         
         return(
-            <div className="ui container image-card">
+            <div className="ui image-card container">
                 {this.onLoadin(this.props.photos)}
             </div>
         )

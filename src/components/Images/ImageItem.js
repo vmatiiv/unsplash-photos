@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent } from '*.svg';
+
 
 
 function ImageItem({photo}){
@@ -7,11 +7,11 @@ function ImageItem({photo}){
 
     const image = React.createRef();
 
-
-    console.log(photo);
     return(
     <div>
-        <img ref={image} src={photo.urls.regular}></img>
+        <a href={photo.links.download+'?force=true'}  download>
+        <img ref={image} alt={photo.description} src={photo.urls.regular} />
+        </a>
     </div>
     )
 }
