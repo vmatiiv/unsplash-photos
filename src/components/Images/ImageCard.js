@@ -4,21 +4,37 @@ import './ImageCard.css';
 
 class ImageCard extends React.Component{
 
+    state={
+        warning:'',
+    }
+
     onLoadin(arr){
-        if(arr.length===0){
-            return (<div className="loading"> waiting on fetch data</div>)
-        }
-            const photos = arr.map(x=><ImageItem key={x.id} photo={x}/>)
-            return photos
+         
+            const photos = arr.map(x=><ImageItem  photo={x}/>)
+            
+            // return (arr.length===0?this.state.warning:photos)
+            return photos;
     }
 
 
+    // componentDidMount(){
+    //     const warning = <div className="loading"> waiting on fetch data</div>
+    //     this.setState({warning})
+    // }
+
+    componentDidUpdate(){
+
+    }
 
     render(){
         
         return(
-            <div className="ui image-card container">
-                {this.onLoadin(this.props.photos)}
+            <div className="ui  container">
+                <div className="image-card">
+
+                    {this.onLoadin(this.props.photos)}
+                </div>
+
             </div>
         )
     }

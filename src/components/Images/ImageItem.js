@@ -1,18 +1,36 @@
 import React from 'react';
 
 
+class ImageItem extends React.Component{
+    constructor(props){
+        super(props);
 
-function ImageItem({photo}){
+        this.state={
+            spans:null
+        }
+        this.image = React.createRef();
+    }
 
+    componentDidMount(){
 
-    const image = React.createRef();
+        this.image.current.addEventListener('load',this.setSpans);
+    }
 
-    return(
-    <div>
-        <a href={photo.links.download+'?force=true'}  download>
-        <img ref={image} alt={photo.description} src={photo.urls.regular} />
-        </a>
-    </div>
-    )
+    setSpans=()=>{
+
+        const height = this.image.current.clientHeight;
+
+        const spans = Math.ceil(height/10);
+        this.setState({spans});
+    }
+    render(){
+        return(
+        <div style={{gridRowEnd: `span ${this.state.spans}`}}>
+            <a href={this.props.photo.links.download+'?force=true'}  download>
+                <img  ref={this.image} alt={this.props.photo.description} src={this.props.photo.urls.regular} />
+            </a>
+        </div>
+        )
+    }
 }
 export default ImageItem;
