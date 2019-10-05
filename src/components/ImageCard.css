@@ -37,3 +37,7 @@ img {
 
   object-position: center;
 }
+
+img:hover{
+    transform: scale(1.01);
+}
