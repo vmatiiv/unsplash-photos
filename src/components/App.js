@@ -14,7 +14,7 @@ function App() {
     const [search,setSearch]=useState('');
     // const [pages,setPages]=useState(0);
     let pages = Math.ceil(window.innerHeight/160*(window.innerWidth/250));
-
+    const [total,setTotal]=useState(1);
     const [pageNum,setPageNum]=useState(0);
 
     const fetchPhotos = async () =>{
@@ -25,12 +25,9 @@ function App() {
                 per_page:Math.ceil(window.innerHeight/160*(window.innerWidth/250)),
             }
         });
-        console.log(result);
             setPhotos(result.data.results);
-            console.log(pages);
-
             setPageNum(Math.ceil(pages/10)+1);
-        
+            setTotal(result.data.total);
     };
     const addPhotos = async () => {
         const result = await unsplash.get('/search/photos',
@@ -44,8 +41,7 @@ function App() {
         let arr =[...photos];
         result.data.results.forEach(x=>arr.push(x));
         setPhotos(arr);
-        // setPhotos(result.data.results);
-
+        console.log(result);
 
     }
     useEffect(()=>{
@@ -65,12 +61,22 @@ function App() {
 
         
     }
-    return (
-        <div>
-            <SearchBar search={setSearch} setPhotos={setPhotos} fetchPhotos={fetchPhotos}/>
+    
+    const wrongRequest = () =>{
+        if(total===0){
+           return <div>Wrong request</div>
+        }
+        return(
             <Suspense fallback={<div>Loading...</div>}>
                 <ImageCard photos={photos}/>
             </Suspense>
+        )
+    }
+    return (
+        <div>
+            <SearchBar search={setSearch} setPhotos={setPhotos} fetchPhotos={fetchPhotos}/>
+            {wrongRequest()}
+
         </div>
     )
 }
