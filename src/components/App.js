@@ -72,6 +72,7 @@ function App() {
             </Suspense>
         )
     }
+    
     return (
         <div>
             <SearchBar search={setSearch} setPhotos={setPhotos} fetchPhotos={fetchPhotos}/>

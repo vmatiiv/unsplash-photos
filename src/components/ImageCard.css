@@ -18,6 +18,10 @@
     width: 250px;
     object-fit: cover;
 } */
+/* body{
+  overflow: hidden;
+
+} */
 ul {
     list-style: none;
   display: flex;
@@ -30,14 +34,14 @@ li {
   flex-grow: 1;
 }
 
-img {
+/* img {
   max-height: 100%;
   min-width: 100%;
   object-fit: cover;
 
   object-position: center;
-}
+} */
 
 img:hover{
-    transform: scale(1.01);
+    transform: scale(1.05);
 }
