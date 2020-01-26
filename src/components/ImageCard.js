@@ -3,7 +3,7 @@ import ImageItem from './ImageItem'
 import './ImageCard.css'
 
 function ImageCard({photos}) {
-    const imageItems = photos.map((x,index)=><ImageItem photo={x} key={index}/>);
+    const imageItems = photos.map((x)=><ImageItem photo={x} key={x.id}/>);
 
     return (
         <div style={{textAlign:'center'}}>
