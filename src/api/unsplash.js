@@ -9,4 +9,16 @@ const unsplash = axios.create({
 });
 
 
+
+
+export const getPhotos =  (query,perPage=30,pageNum=0)=>{
+    return unsplash.get(`/search/photos`,{
+        params:{
+            query:query,
+            per_page:perPage,
+            page:pageNum
+        }
+    }) 
+}
+
 export default unsplash
