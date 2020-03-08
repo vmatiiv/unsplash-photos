@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import ImageCard from './ImageCard';
 
 import {getPhotos} from '../api/unsplash';
+let pageNum=1;
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
 
     const handleSubmit = async (e,value) => {
         e.preventDefault();
+        pageNum=1;
         setPhotos([]);
         setQuery(value);
         
@@ -19,19 +21,19 @@ function App() {
             const fetchedPhotos = await getPhotos(value);
             setPhotos(fetchedPhotos.data.results)
         } catch (error) {
-            alert(error);            
+            alert(`${error.response.data} please try later`)      
         }
         
     }
 
     useEffect(()=>{
-        let pageNum=1;
 
+        console.log(pageNum);
         async function onScroll (){
             if(window.scrollY+window.innerHeight+100 >= document.body.scrollHeight){
-                pageNum = 3+pageNum;
-                const fetchedPhotos = await getPhotos(query,pageNum,10);
-                setPhotos([...photos,fetchedPhotos.data.results]);
+                pageNum++;
+                const fetchedPhotos = await getPhotos(query,10,pageNum);
+                setPhotos([...photos,...fetchedPhotos.data.results]);
             }  
         }
         window.addEventListener('scroll',onScroll)
