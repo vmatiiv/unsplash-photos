@@ -1,11 +1,19 @@
 .imageCard{
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width:100%;
+  height: 90vh;
+  padding: 0;
   margin: 0;
+}
+.imageCard::-webkit-scrollbar {
+  display:none;
 
 }
 ul{
   list-style: none;
   padding: 0;
+  margin:0;
   column-gap: 1em;
   column-count: 1;
 }
@@ -18,18 +26,31 @@ img{
 }
 
 @media screen and (min-width:768px){
+
   ul{
     column-count: 2;
   }
 }
 
 @media screen and (min-width:1080px){
+  .imageCard{
+    padding: 0 1rem;
+  }
+  .imageCard::-webkit-scrollbar {
+    display:block;
+  }
   ul{
     column-count:3;
   }
 }
 
 @media screen and (min-width:1920px){
+  .imageCard{
+    padding: 0 1rem;
+  }
+  .imageCard::-webkit-scrollbar {
+    display:block;
+  }
   ul{
     column-count:4
   }

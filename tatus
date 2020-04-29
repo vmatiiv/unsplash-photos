@@ -1,0 +1,87 @@
+[33mcommit ffa933802a0deab322e7d47687d5e92d1132273e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mscroll-fetching[m[33m)[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Sun Mar 8 23:24:55 2020 +0200
+
+    remove fetching issue, add error allert
+
+[33mcommit eaae8a89400f6afd65439fadcf20ae35dd7c7905[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Fri Feb 21 22:58:20 2020 +0200
+
+    change grid system
+
+[33mcommit 736dac17633c44a39b76d77ca51bd9f40c975497[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Sun Jan 26 11:00:41 2020 +0200
+
+    remove unnecessari states
+
+[33mcommit eef94217080d8040f0ec236ca429fee85f17bd1c[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Thu Jan 23 17:58:19 2020 +0200
+
+    change image fit
+
+[33mcommit 1a650449ffd9c18035e4e4a899ba5e103f3d5e43[m
+Merge: 588780e 3ab0445
+Author: Matiiv Vasyl <51299968+vmatiiv@users.noreply.github.com>
+Date:   Sat Jan 4 13:25:50 2020 +0200
+
+    Merge pull request #1 from vmatiiv/dependabot/npm_and_yarn/handlebars-4.5.3
+    
+    Bump handlebars from 4.2.0 to 4.5.3
+
+[33mcommit 3ab0445609a098070a4aa361ce5392825ed827b2[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Dec 29 23:21:53 2019 +0000
+
+    Bump handlebars from 4.2.0 to 4.5.3
+    
+    Bumps [handlebars](https://github.com/wycats/handlebars.js) from 4.2.0 to 4.5.3.
+    - [Release notes](https://github.com/wycats/handlebars.js/releases)
+    - [Changelog](https://github.com/wycats/handlebars.js/blob/master/release-notes.md)
+    - [Commits](https://github.com/wycats/handlebars.js/compare/v4.2.0...v4.5.3)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit 588780e07486aeb9770a6182329bb717e49917e1[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Sat Oct 5 20:27:48 2019 +0300
+
+    fix mobile loading bug
+
+[33mcommit 83cb63c845e9c6bbf68fba9863fc196f052edc87[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Sat Oct 5 20:11:53 2019 +0300
+
+    improve display photo
+
+[33mcommit a1f6baca35ebeaa2d315c8ddb38074ea7237b0e0[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Tue Sep 24 00:28:04 2019 +0300
+
+    remaster app using hooks
+
+[33mcommit eba2e70e50164a08a2f0a9e996b675991a74af48[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Tue Sep 10 21:02:25 2019 +0300
+
+    add function for loading new photos
+
+[33mcommit 3d41431b61ea5d9643cc870e3c1b2ae51b581036[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Mon Sep 9 20:48:40 2019 +0300
+
+    add downloading function
+
+[33mcommit 479e3b7bdba67d8426cbb3a8640b926ffed66a58[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Mon Sep 9 19:07:30 2019 +0300
+
+    create skeleton
+
+[33mcommit 575657212115caf9c4cb3003d9b93dade7665b34[m
+Author: vmatiiv <matiiv.vasyl97@gmail.com>
+Date:   Sun Sep 8 15:51:06 2019 +0300
+
+    Initial commit from Create React App
