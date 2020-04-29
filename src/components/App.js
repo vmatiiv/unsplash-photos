@@ -2,15 +2,15 @@
 import React,{useState} from 'react';
 import SearchBar from './SearchBar';
 import ImageCard from './ImageCard';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import {getPhotos} from '../api/unsplash';
-let pageNum=1;
 
+let pageNum=1;
+let fetching = false;
 function App() {
 
     const [photos,setPhotos]=useState([]);
     const [query,setQuery]=useState("");
-    const [fetching,setFetching] = useState(false);
+    // const [fetching,setFetching] = useState(false);
 
     const handleSubmit = async (e,value) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ function App() {
         setQuery(value);
         
         try {
-           fetchPhoto(value,30,pageNum)
+           fetchPhoto(value,10,pageNum)
         } catch (error) {
             alert(`${error.response.data} please try later`)      
         }
@@ -27,26 +27,18 @@ function App() {
     }
 
     const fetchPhoto =async  (query,perPage,pageNumber) => {
-        console.log('fetching')
         const fetchedPhotos = await getPhotos(query,perPage,pageNumber);
         setPhotos([...photos,...fetchedPhotos.data.results]);
+        fetching=false;
     }
-    const onScroll = async  (e) => {
+    const onScroll =   (e) => {
         const scrolled = e.target.scrollTop + e.target.offsetHeight;
         const scrollHeight = e.target.scrollHeight
         if(scrolled > scrollHeight*0.90 && !fetching){
-            console.log('fetching')
             pageNum++;
-            await fetchPhoto(query,10,pageNum);
-            setFetching(true);
-
+            fetching = true;
+            fetchPhoto(query,10,pageNum);
         }
-// console.log(e.target.scrollHeight,'height')
-// console.log(e.target.scrollTop + e.target.offsetHeight,'top')
-//         scrollHeight: 3267
-// scrollLeft: 0
-// scrollTop: 3
-// scrollWidth: 1132
     }
 
     return (
