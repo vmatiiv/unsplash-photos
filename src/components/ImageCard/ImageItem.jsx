@@ -7,10 +7,7 @@ function ImageItem({photo}) {
     return (
         <li className="imageItem">
 
-<Link to={{
-    pathname:`/${photo.id}`,
-    state: photo
-}} >            {/* <a href={photo.links.download+'?force=true'}> */}
+<Link to={`${photo.id}`}>            {/* <a href={photo.links.download+'?force=true'}> */}
             <ProgressiveImage src={photo.urls.regular} placeholder={photo.urls.thumb}>
                 {src => <img className="photo" src={src} alt={photo.alt_description} />}
             </ProgressiveImage>
