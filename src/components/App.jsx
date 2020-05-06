@@ -3,32 +3,31 @@ import React,{useState} from 'react';
 import SearchBar from './SearchBar';
 import ImageCard from './ImageCard';
 import {getPhotos} from '../api/unsplash';
-
+import {Route,Switch} from 'react-router-dom';
+import Popup from './Popup';
 let pageNum=1;
 let fetching = false;
 function App() {
 
     const [photos,setPhotos]=useState([]);
     const [query,setQuery]=useState("");
-    // const [fetching,setFetching] = useState(false);
-
+    window.photos = photos;
     const handleSubmit = async (e,value) => {
         e.preventDefault();
         pageNum=1;
-        setPhotos([]);
         setQuery(value);
-        
         try {
-           fetchPhoto(value,10,pageNum)
+            fetching = true;
+           fetchPhoto(value,10,pageNum,[])
         } catch (error) {
             alert(`${error.response.data} please try later`)      
         }
         
     }
 
-    const fetchPhoto =async  (query,perPage,pageNumber) => {
+    const fetchPhoto = async  (query,perPage,pageNumber,photosArray) => {
         const fetchedPhotos = await getPhotos(query,perPage,pageNumber);
-        setPhotos([...photos,...fetchedPhotos.data.results]);
+        setPhotos([...photosArray,...fetchedPhotos.data.results]);
         fetching=false;
     }
     const onScroll =   (e) => {
@@ -37,14 +36,18 @@ function App() {
         if(scrolled > scrollHeight*0.90 && !fetching){
             pageNum++;
             fetching = true;
-            fetchPhoto(query,10,pageNum);
+            fetchPhoto(query,10,pageNum,photos);
         }
     }
-
     return (
         <div >
-            <SearchBar handleSubmit={handleSubmit} />
-            <ImageCard onScroll={onScroll} photos={photos}/> 
+            {/* <Switch> */}
+                <Route path="/">
+                    <SearchBar handleSubmit={handleSubmit} />
+                    <ImageCard onScroll={onScroll} photos={photos}/> 
+                </Route>
+                <Route path="/:id" exact component={Popup} />
+            {/* </Switch> */}
         </div>
     )
 }

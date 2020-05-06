@@ -1,16 +1,20 @@
 import React from 'react';
 import ProgressiveImage from 'react-progressive-image';
-  
+import {Link} from 'react-router-dom';
 
 function ImageItem({photo}) {
+
     return (
-        <li className="imageItem" >
-            {/* <a href={photo.links.download+'?force=true'}> */}
+        <li className="imageItem">
+
+<Link to={{
+    pathname:`/${photo.id}`,
+    state: photo
+}} >            {/* <a href={photo.links.download+'?force=true'}> */}
             <ProgressiveImage src={photo.urls.regular} placeholder={photo.urls.thumb}>
                 {src => <img className="photo" src={src} alt={photo.alt_description} />}
             </ProgressiveImage>
-                {/* <img  className="photo" src={photo.urls.regular} alt={photo.alt_description}></img> */}
-            {/* </a> */}
+</Link>            {/* </a> */}
         </li>
     )
 }
