@@ -7,6 +7,7 @@ import { Routes,Route, Link } from 'react-router-dom';
 
 import Popup from './PopUp/Popup';
 import UserInfo from './PopUp/UserInfo';
+import PopUpContainer from './PopUp/PopUpContainer';
 let pageNum=1;
 let fetching = false;
 function App() {
@@ -18,7 +19,6 @@ function App() {
     useEffect(()=>{
         ( async () => {
             const results = await getAllPhotos();
-            console.log(results)
             setPhotos(results.data)
         })()
     },[])
@@ -51,24 +51,19 @@ function App() {
             fetchPhoto(query,10,pageNum,photos);
         }
     }
-    const main = () => {
-        return (
-        <> 
-            <SearchBar handleSubmit={handleSubmit} />
-            <ImageCard onScroll={onScroll} photos={photos}/> 
-        </>
-        )
-    }
     return (
         <div >
-            {/* <Switch> */}
+            <SearchBar handleSubmit={handleSubmit} />
             <Routes>
-                <Route path="/" element={main()}/>
-
-                <Route path=":id/*" element={<Popup />} />
-
+                <Route path="/*" element={<ImageCard onScroll={onScroll} photos={photos}/> }>
+                    <Route path=":id/*" element={<PopUpContainer/>} >
+                        <Route path="user" element={<UserInfo user={"ivan"}/>}/>
+                        <Route path="collections" element={<h1>collections</h1>}/>
+                        <Route path="photo" element={<h1>photo</h1>}/>
+                    </Route>
+                </Route>
+                <Route path="/:userId" element={<h1></h1>}/>
             </Routes>
-            {/* </Switch> */}
         </div>
     )
 }

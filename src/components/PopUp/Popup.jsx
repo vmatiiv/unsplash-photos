@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import ProgressiveImage from 'react-progressive-image';
-import { getUserPhotos } from '../../api/unsplash';
+import { getUserPhotos,getPhoto } from '../../api/unsplash';
 import UserInfo from './UserInfo';
-import { Routes,Route, Link } from 'react-router-dom';
+import { Link, Outlet,useParams,useLocation,Navigate   } from 'react-router-dom';
+import { useState } from 'react';
 const Wrapper = styled.div`
     position:absolute;
     top:0;
@@ -28,49 +29,50 @@ const Content = styled.div`
         width:70%;
     }
 `
-// {history:{location:{state}},history:{goBack}}
-function Popup(props) {
-    console.log(props)
-    // useEffect(()=>{
-    //     userPhotos()
-    // },[])
 
+const Img = styled.img`
+    width:300px;
+    height:300px;
+`
+function Popup({urls,alt_description,links:{download},description,user,exif}) {
+    const downloadUrl = download+'?force=true';
+    const [goBack,setGoBack] = useState(false);
     // const userPhotos = async () => {
     //     const response = await getUserPhotos(state.user.username)
     //     return response
     // }
-    const onClick = (e) =>{
-        console.log(e)
-    }
     // const onLoad = (e) => {
     //     console.log(e.target)
     //     e.target.focus();
-        
+    
 
     // }
+
+    const onClick = () => {
+        setGoBack(true);
+    }
     return (
         <Wrapper onClick={onClick}>
+            {goBack && <Navigate to="/" /> }
             <Content  onClick={(e)=>e.stopPropagation()}>
+
                 <div>
-                    <Link to="user">halo</Link>
+                {/* <ProgressiveImage src={urls.regular} placeholder={urls.thumb}>
+                    {src => <img width="200px" height="200px"  src={src} alt={alt_description} />}
+                </ProgressiveImage> */}
+                    <Img src={urls.regular}/>
+
+                </div>
+                <div>
+                    <a href={downloadUrl}>Donwload</a>
+                    {description || alt_description}
+                </div>
+                <div>
+                    <Link to="user">photo</Link>
                     <Link to="collections">nop</Link>
                     <Link to="photo">yep</Link>
                 </div>
-                <Routes>
-                    <Route path="user" element={<UserInfo user={"ivan"}/>}/>
-                    <Route path="collections" element={<h1>collections</h1>}/>
-                    <Route path="photo" element={<h1>photo</h1>}/>
-                </Routes>
-                {/* <div>
-                <ProgressiveImage src={state.urls.regular} placeholder={state.urls.thumb}>
-                    {src => <img  src={src} alt={state.alt_description} />}
-                </ProgressiveImage>
-                </div>
-                <div>
-                    <button onClick={onClick}>X</button>
-                    some info
-                </div>
-                <UserInfo user={state.user}/> */}
+                <Outlet/>
 
             </Content>
         </Wrapper>

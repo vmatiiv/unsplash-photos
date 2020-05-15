@@ -1,8 +1,7 @@
 import React from 'react'
 import ImageItem from './ImageItem'
-import './ImageCard.css'
 import styled from 'styled-components';
-
+import {Outlet} from 'react-router-dom';
 const Wrapper = styled.div`
     overflow-x: hidden;
     overflow-y: auto;
@@ -49,11 +48,11 @@ function ImageCard({photos,onScroll}) {
 
 
     return (
-
             <Wrapper className="imageCard" onScroll={onScroll} >
-               <List>
-                    {imageItems}
-               </List>
+                <Outlet/>
+                <List>
+                     {imageItems}
+                </List>
             </Wrapper>
 
     )

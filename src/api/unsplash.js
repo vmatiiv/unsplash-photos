@@ -20,6 +20,11 @@ export const getPhotos =  (query,perPage=30,pageNum=0)=>{
         }
     }) 
 }
+
+export const getPhoto = (id) => {
+    return unsplash.get(`/photos/${id}`)
+}
+
 export const getAllPhotos = () => {
     return unsplash.get('/photos')
 }
