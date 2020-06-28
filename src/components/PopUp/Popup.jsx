@@ -34,32 +34,36 @@ const Img = styled.img`
     width:300px;
     height:300px;
 `
-function Popup({urls,alt_description,links:{download},description,user,exif}) {
-    const downloadUrl = download+'?force=true';
+// urls,alt_description,links:{download},description,user,exif
+function Popup({photo,morePhotos}) {
+    debugger
+    // const downloadUrl = download+'?force=true';
     const [goBack,setGoBack] = useState(false);
+    
     // const userPhotos = async () => {
-    //     const response = await getUserPhotos(state.user.username)
+    //     const response = await getUserPhotos(user.username)
+    //     console.log(response);
     //     return response
     // }
+
     // const onLoad = (e) => {
     //     console.log(e.target)
     //     e.target.focus();
-    
-
     // }
-
+                {/* <ProgressiveImage src={urls.regular} placeholder={urls.thumb}>
+                    {src => <img width="200px" height="200px"  src={src} alt={alt_description} />}
+                </ProgressiveImage> */}
     const onClick = () => {
         setGoBack(true);
     }
     return (
         <Wrapper onClick={onClick}>
             {goBack && <Navigate to="/" /> }
-            <Content  onClick={(e)=>e.stopPropagation()}>
+            alo
+            {/* <Content  onClick={(e)=>e.stopPropagation()}>
 
                 <div>
-                {/* <ProgressiveImage src={urls.regular} placeholder={urls.thumb}>
-                    {src => <img width="200px" height="200px"  src={src} alt={alt_description} />}
-                </ProgressiveImage> */}
+
                     <Img src={urls.regular}/>
 
                 </div>
@@ -74,7 +78,7 @@ function Popup({urls,alt_description,links:{download},description,user,exif}) {
                 </div>
                 <Outlet/>
 
-            </Content>
+            </Content> */}
         </Wrapper>
 
     )

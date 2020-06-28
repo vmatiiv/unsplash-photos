@@ -11,12 +11,11 @@ const unsplash = axios.create({
 
 
 
-export const getPhotos =  (query,perPage=30,pageNum=0)=>{
+export const getPhotos =  (query,pageNum=0)=>{
     return unsplash.get(`/search/photos`,{
         params:{
             query:query,
-            per_page:perPage,
-            page:pageNum
+            page:pageNum,
         }
     }) 
 }
@@ -25,8 +24,12 @@ export const getPhoto = (id) => {
     return unsplash.get(`/photos/${id}`)
 }
 
-export const getAllPhotos = () => {
-    return unsplash.get('/photos')
+export const getAllPhotos = (pageNum=0) => {
+    return unsplash.get('/photos',{
+        params:{
+            page:pageNum,
+        }
+    })
 }
 export const getUserPhotos = (username) => {
     return unsplash.get(`/users/${username}/photos`)

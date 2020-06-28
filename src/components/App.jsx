@@ -19,45 +19,48 @@ function App() {
     useEffect(()=>{
         ( async () => {
             const results = await getAllPhotos();
-            setPhotos(results.data)
+            setPhotos([results.data])
         })()
     },[])
 
     window.photos = photos;
     const handleSubmit = async (e,value) => {
         e.preventDefault();
+        console.log('yep')
         pageNum=1;
         setQuery(value);
         try {
             fetching = true;
-           fetchPhoto(value,10,pageNum,[])
+           fetchPhoto(value,pageNum,[])
         } catch (error) {
             alert(`${error.response.data} please try later`)      
         }
         
     }
 
-    const fetchPhoto = async  (query,perPage,pageNumber,photosArray) => {
-        const fetchedPhotos = await getPhotos(query,perPage,pageNumber);
-        setPhotos([...photosArray,...fetchedPhotos.data.results]);
+    const fetchPhoto = async  (query=null,pageNumber,prevArray) => {
+        const fetchedPhotos = query ? await getPhotos(query,pageNumber) : await getAllPhotos(pageNumber);
+        const response = fetchedPhotos.data?.results || fetchedPhotos.data
+        setPhotos([...prevArray,response]);
         fetching=false;
     }
     const onScroll =   (e) => {
         const scrolled = e.target.scrollTop + e.target.offsetHeight;
         const scrollHeight = e.target.scrollHeight
+
         if(scrolled > scrollHeight*0.90 && !fetching){
             pageNum++;
             fetching = true;
-            fetchPhoto(query,10,pageNum,photos);
+            fetchPhoto(query,pageNum,photos);
         }
     }
     return (
-        <div >
+        <div>
             <SearchBar handleSubmit={handleSubmit} />
             <Routes>
                 <Route path="/*" element={<ImageCard onScroll={onScroll} photos={photos}/> }>
                     <Route path=":id/*" element={<PopUpContainer/>} >
-                        <Route path="user" element={<UserInfo user={"ivan"}/>}/>
+                        {/* <Route path="user" element={<UserInfo/> */}
                         <Route path="collections" element={<h1>collections</h1>}/>
                         <Route path="photo" element={<h1>photo</h1>}/>
                     </Route>
