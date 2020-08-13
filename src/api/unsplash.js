@@ -1,17 +1,22 @@
 import axios from 'axios';
-
 const unsplash = axios.create({
     baseURL:'https://api.unsplash.com',
     headers:{
-        Authorization: 'Client-ID c17f72f1da2af64d21a59a5ea85d487547a01721df5310a592f4f6949aa68caf'
-    }
-    
+        Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_API_ID}` 
+    }    
 });
 
 
 
-
+export const fetchData = (endpoint,params=null) => {
+    return unsplash.get(`${endpoint}`,{
+        params:{
+            ...params
+        }
+    })
+}
 export const getPhotos =  (query,pageNum=0)=>{
+
     return unsplash.get(`/search/photos`,{
         params:{
             query:query,
@@ -31,8 +36,21 @@ export const getAllPhotos = (pageNum=0) => {
         }
     })
 }
-export const getUserPhotos = (username) => {
-    return unsplash.get(`/users/${username}/photos`)
+export const getUserPhotos = (username,pageNum=0) => {
+    return unsplash.get(`/users/${username}/photos`,{
+        params:{
+            page:pageNum
+        }
+    })
+}
+export const getUser = (username) => {
+    return unsplash.get(`/users/${username}`)
+}
+export const getUserCollections = (username) => {
+    return unsplash.get(`/users/${username}/collections`)
 }
 
+export const getCollectionPhotos = (id) => {
+    return unsplash.get(`/collections/${id}/photos`)
+}
 export default unsplash

@@ -1,73 +1,66 @@
-
-import React,{useState, useEffect} from 'react';
-import SearchBar from './Navigation/SearchBar';
-import ImageCard from './ImageCard/ImageCard';
-import {getPhotos, getAllPhotos} from '../api/unsplash';
-import { Routes,Route, Link } from 'react-router-dom';
-
-import Popup from './PopUp/Popup';
-import UserInfo from './PopUp/UserInfo';
+import React, { useState, useCallback } from 'react';
+import { Routes,Route,useNavigate, Link} from 'react-router-dom';
+import HomeContainer from './Home'
 import PopUpContainer from './PopUp/PopUpContainer';
-let pageNum=1;
-let fetching = false;
+import UserContainer from './User'
+import NotFound from '../NotFound';
+import SearchBar from './Navigation/SearchBar';
+import CameraInfo from './PopUp/CameraInfo'
+import CollectionsContainer from './Collections'
+import PhotoListContainer from './User/PhotoListContainer'
+import CollectionPage from './Collections/CollectionPage';
+import LikesContainer from './User/LikesContainer';
+
 function App() {
-
-
-    const [photos,setPhotos]=useState([]);
-    const [query,setQuery]=useState("");
-
-    useEffect(()=>{
-        ( async () => {
-            const results = await getAllPhotos();
-            setPhotos([results.data])
-        })()
-    },[])
-
-    window.photos = photos;
-    const handleSubmit = async (e,value) => {
+    const navigate = useNavigate();
+    const handleSubmit = (e,value) => {
         e.preventDefault();
-        console.log('yep')
-        pageNum=1;
-        setQuery(value);
-        try {
-            fetching = true;
-           fetchPhoto(value,pageNum,[])
-        } catch (error) {
-            alert(`${error.response.data} please try later`)      
-        }
-        
+        navigate(`search/${value}`)
     }
 
-    const fetchPhoto = async  (query=null,pageNumber,prevArray) => {
-        const fetchedPhotos = query ? await getPhotos(query,pageNumber) : await getAllPhotos(pageNumber);
-        const response = fetchedPhotos.data?.results || fetchedPhotos.data
-        setPhotos([...prevArray,response]);
-        fetching=false;
-    }
-    const onScroll =   (e) => {
-        const scrolled = e.target.scrollTop + e.target.offsetHeight;
-        const scrollHeight = e.target.scrollHeight
-
-        if(scrolled > scrollHeight*0.90 && !fetching){
-            pageNum++;
-            fetching = true;
-            fetchPhoto(query,pageNum,photos);
-        }
-    }
     return (
-        <div>
-            <SearchBar handleSubmit={handleSubmit} />
+        <>
+            <SearchBar handleSubmit={handleSubmit}/>
+
             <Routes>
-                <Route path="/*" element={<ImageCard onScroll={onScroll} photos={photos}/> }>
-                    <Route path=":id/*" element={<PopUpContainer/>} >
-                        {/* <Route path="user" element={<UserInfo/> */}
-                        <Route path="collections" element={<h1>collections</h1>}/>
-                        <Route path="photo" element={<h1>photo</h1>}/>
+                
+                <Route path="/" element={<HomeContainer  />} >
+                    <Route path="p/:id/*" element={<PopUpContainer/>} >
+                        <Route path="info" element={<CameraInfo/>}/>
                     </Route>
                 </Route>
-                <Route path="/:userId" element={<h1></h1>}/>
+                
+                <Route path='/search/:query/' element={<HomeContainer /> }>
+                    <Route path="p/:id/*" element={<PopUpContainer/>} >
+                        <Route path="info" element={< CameraInfo/>}/>
+                    </Route>
+                </Route>
+                
+                <Route path='/user/:username/' element={<UserContainer/>} >
+                    <Route path="/photos" element={<PhotoListContainer/>}>
+                        <Route path="p/:id/*" element={<PopUpContainer />} >
+                            <Route path="info" element={<CameraInfo/>}/>
+                        </Route>
+                    </Route>
+
+                    <Route path="likes" element={<LikesContainer/>}>
+                        <Route path="p/:id/*" element={<PopUpContainer />} >
+                            <Route path="info" element={<CameraInfo/>}/>
+                        </Route>
+                    </Route>                    
+                    <Route path="collections" element={<CollectionsContainer/>}/>
+                </Route>
+
+                <Route path="/collection/:id" element={<CollectionPage />}>
+                    <Route path="p/:id/*" element={<PopUpContainer />} >
+                        <Route path="info" element={<CameraInfo/>}/>
+                    </Route>
+
+                </Route>
+
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
-        </div>
+        </>
     )
 }
 

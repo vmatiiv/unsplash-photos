@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React  from 'react'
 import Popup from './Popup'
 import { useParams } from 'react-router';
-import { getPhoto,getUserPhotos } from '../../api/unsplash';
-
+import useFetch from '../useFetch';
 function PopUpContainer() {
-    const [photo,setPhoto] = useState(null)
-    const [morePhotos,setMorePhotos] = useState(null)
-    let params = useParams();
-    useEffect(()=>{
-        (async () => {
-            const response = await getPhoto(params.id)
-            setPhoto(response.data)
-            console.log(response);
-            const morePhotos = await getUserPhotos(response.data.user.username)
-            setMorePhotos(morePhotos)
-        })()
-    },[])
-    return   photo ? <Popup  photo={photo} morePhotos={morePhotos}/> :null 
-    
-        
+    let linkParams = useParams();
+    console.log(linkParams,'popup');
+    const mainPhotoEndpoint = `/photos/${linkParams.id}`
+    let state= useFetch(mainPhotoEndpoint,{page:1}); 
+
+    return  <Popup photo={state.items} loading={state.loading}/> 
+
 }
 
 export default PopUpContainer
