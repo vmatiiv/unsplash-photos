@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../img/logo.svg'
 import { Img } from '../../styles'
 import styled from 'styled-components'
@@ -47,7 +47,12 @@ const Form = styled.form`
 `
 
 
-function SearchBar({handleSubmit}) {
+function SearchBar() {
+    const navigate = useNavigate();
+    const handleSubmit = (e,value) => {
+        e.preventDefault();
+        navigate(`search/${value}`)
+    }
     const [query,setQuery] = useState(null)
     const handleInputChange = (e) =>{
         setQuery(e.target.value)

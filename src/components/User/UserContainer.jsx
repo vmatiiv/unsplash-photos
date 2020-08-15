@@ -8,6 +8,7 @@ import { Outlet } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {FaHeart,FaImage,FaRegClone} from 'react-icons/fa'
+import SearchBar from '../Navigation/SearchBar';
 
 
 
@@ -36,7 +37,7 @@ function UserContainer() {
     return <div> 
     { user && 
         <div>
-  
+            <SearchBar/>
                 <UserInfo user={user}/>
                 <Slink active={ActiveLink('photos',activeRoute)} to="photos"><FaImage/> Photos {user.total_photos}</Slink> 
                 <Slink active={ActiveLink('collections',activeRoute)} to="collections"><FaRegClone/>Collections {user.total_collections}</Slink>

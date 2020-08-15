@@ -28,7 +28,9 @@ export const getPhotos =  (query,pageNum=0)=>{
 export const getPhoto = (id) => {
     return unsplash.get(`/photos/${id}`)
 }
-
+export const getRandomPhoto = () => {
+    return unsplash.get(`/photos/random`)
+}
 export const getAllPhotos = (pageNum=0) => {
     return unsplash.get('/photos',{
         params:{

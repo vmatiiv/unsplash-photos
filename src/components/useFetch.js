@@ -39,7 +39,7 @@ const useFetch = (endpoint,{page,query})=>{
                 }
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => err.status === '403' && alert('We use free api, and it looks like we  used all our api calls, please try later'))
     },[endpoint,page,query])
     return state
 }

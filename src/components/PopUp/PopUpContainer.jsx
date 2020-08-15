@@ -4,7 +4,6 @@ import { useParams } from 'react-router';
 import useFetch from '../useFetch';
 function PopUpContainer() {
     let linkParams = useParams();
-    console.log(linkParams,'popup');
     const mainPhotoEndpoint = `/photos/${linkParams.id}`
     let state= useFetch(mainPhotoEndpoint,{page:1}); 
 

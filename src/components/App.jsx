@@ -12,15 +12,11 @@ import CollectionPage from './Collections/CollectionPage';
 import LikesContainer from './User/LikesContainer';
 
 function App() {
-    const navigate = useNavigate();
-    const handleSubmit = (e,value) => {
-        e.preventDefault();
-        navigate(`search/${value}`)
-    }
+
 
     return (
         <>
-            <SearchBar handleSubmit={handleSubmit}/>
+            {/* <SearchBar/> */}
 
             <Routes>
                 
