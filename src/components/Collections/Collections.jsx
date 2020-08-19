@@ -1,21 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 const Wrapper = styled.div`
     width:100%;
-    height:100%;
+    /* height:100%; */
     padding:1rem;
-    body{
-        overflow-y:scroll;
-    }
 `
-
-
-
 const Collection = styled.div`
     display:flex;
     width:100%;
-    height:100%;
+    /* height:100%; */
     border-radius:6px;
 `
 const Img = styled.img`
@@ -58,8 +52,28 @@ const SmallImageDiv = styled.div`
     background-color:#f5f5f5;
     margin-bottom:${props => props.margin && '2px'};
 `;
-function Collections({collections}) {
-    const collectionsList = collections.map(item => <CollectionPreview  key={item.id} id={item.id} photos={item.preview_photos} total_photos={item.total_photos} title={item.title}/> )
+function Collections({collections,setPageNumber}) {
+    const [list,setList] = useState([]);
+    useEffect(()=>{
+        setList(prev => [...prev,...collections])
+    },[collections])
+    
+    const observer = useRef()
+    const lastBookElementRef = useCallback(node => {
+    //   if (loading) return
+      if (observer.current) observer.current.disconnect()
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          setPageNumber(prevPageNumber => prevPageNumber + 1)
+        }
+      })
+      if (node) observer.current.observe(node)
+    }, [])
+
+    const collectionsList = list.map((item,i) =>{ 
+        if(i === list.length-1 ) return <div key={item.id} ref={lastBookElementRef}><CollectionPreview   id={item.id} photos={item.preview_photos} total_photos={item.total_photos} title={item.title}/></div>
+        return <CollectionPreview key={item.id} id={item.id} photos={item.preview_photos} total_photos={item.total_photos} title={item.title}/> 
+    })
     return (
         <Wrapper >
             <Grid>
@@ -76,14 +90,14 @@ const CollectionPreview = ({photos,id,title,total_photos}) => {
             return <Img key={item.id}  src={item.urls.thumb} alt=""/>
         })
 
-    return <Link to={`/collection/${id}`}>
+    return <Link to={`/collection/${id}/${title}`}>
         <div style={{position:"relative"}}> 
             <Collection>
                 <ImageDiv width={'70%'}>
                     <SmallImageDiv>
                         {photosList[0]}
                     </SmallImageDiv>
-                </ImageDiv>
+                </ImageDiv >
                 <ImageDiv width={'30%'} primary>
 
                         <SmallImageDiv margin>

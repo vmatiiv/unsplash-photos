@@ -34,14 +34,15 @@ function UserContainer() {
     useEffect(()=>{
         getUser(username).then(x=> setUser(x.data))
     },[])
-    return <div> 
+    return <div style={{overflow:"scroll",height:'95vh'}}> 
     { user && 
-        <div>
-            <SearchBar/>
+        <div >
                 <UserInfo user={user}/>
-                <Slink active={ActiveLink('photos',activeRoute)} to="photos"><FaImage/> Photos {user.total_photos}</Slink> 
-                <Slink active={ActiveLink('collections',activeRoute)} to="collections"><FaRegClone/>Collections {user.total_collections}</Slink>
-                <Slink active={ActiveLink('likes',activeRoute)} to="likes" ><FaHeart/> Likes {user.total_likes}</Slink>
+                <div>
+                    <Slink active={ActiveLink('photos',activeRoute)} to="photos"><FaImage/> Photos {user.total_photos}</Slink> 
+                    <Slink active={ActiveLink('collections',activeRoute)} to="collections"><FaRegClone/>Collections {user.total_collections}</Slink>
+                    <Slink active={ActiveLink('likes',activeRoute)} to="likes" ><FaHeart/> Likes {user.total_likes}</Slink>
+                </div>
             <hr/>
             <Outlet/>
         </div>

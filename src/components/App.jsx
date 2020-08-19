@@ -1,22 +1,22 @@
-import React, { useState, useCallback } from 'react';
-import { Routes,Route,useNavigate, Link} from 'react-router-dom';
+import React from 'react';
+import { Routes,Route} from 'react-router-dom';
 import HomeContainer from './Home'
 import PopUpContainer from './PopUp/PopUpContainer';
 import UserContainer from './User'
 import NotFound from '../NotFound';
-import SearchBar from './Navigation/SearchBar';
 import CameraInfo from './PopUp/CameraInfo'
 import CollectionsContainer from './Collections'
 import PhotoListContainer from './User/PhotoListContainer'
 import CollectionPage from './Collections/CollectionPage';
 import LikesContainer from './User/LikesContainer';
+import SearchBar from './Navigation/SearchBar';
 
 function App() {
 
 
     return (
         <>
-            {/* <SearchBar/> */}
+            <SearchBar/>
 
             <Routes>
                 
@@ -47,7 +47,7 @@ function App() {
                     <Route path="collections" element={<CollectionsContainer/>}/>
                 </Route>
 
-                <Route path="/collection/:id" element={<CollectionPage />}>
+                <Route path="/collection/:id/:title" element={<CollectionPage />}>
                     <Route path="p/:id/*" element={<PopUpContainer />} >
                         <Route path="info" element={<CameraInfo/>}/>
                     </Route>

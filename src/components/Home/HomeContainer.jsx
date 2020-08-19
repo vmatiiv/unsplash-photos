@@ -9,8 +9,6 @@ function HomeContainer() {
     const endpoint = query ? '/search/photos' : '/photos'
     return (
         <>
-            <SearchBar/>
-
             <Photos endpoint={endpoint} item={query}/>
         </>
     )

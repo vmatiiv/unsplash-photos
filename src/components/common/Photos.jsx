@@ -24,12 +24,12 @@ function Photos({endpoint,item}) {
             </Center>
     }
     return (
-        <>
+        <div>
 
             {state.hasError && <div>Can`t find photos by your query</div>}
             
             <Home loading={state.loading} hasMore={state.hasMore} photos={state.items} query={item} setPageNum={increment} />   
-        </>
+        </div>
     )
 }
 

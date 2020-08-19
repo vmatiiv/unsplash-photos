@@ -22,12 +22,11 @@ const  Home = ({loading,hasMore,query,setPageNum,photos})=> {
         }
     },[photos,loading,query])
     
-
     return (
         <div>
 
             <Outlet/>
-            <div ref={someRef} style={{height:"95vh"}}>
+            <div ref={someRef} style={{height:`${window.innerHeight*0.95}px`}}>
                  {myPhotos.length ? <Masonry  hasMore={hasMore} target={someRef.current}  setPageNum={setPageNum} photos={myPhotos}/> : <></>}
             </div>
         </div>

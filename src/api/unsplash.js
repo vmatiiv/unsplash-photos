@@ -48,8 +48,13 @@ export const getUserPhotos = (username,pageNum=0) => {
 export const getUser = (username) => {
     return unsplash.get(`/users/${username}`)
 }
-export const getUserCollections = (username) => {
-    return unsplash.get(`/users/${username}/collections`)
+export const getUserCollections = (username,page) => {
+    return unsplash.get(`/users/${username}/collections`,{
+        params:{
+            page,
+            per_page:9
+        }
+    })
 }
 
 export const getCollectionPhotos = (id) => {

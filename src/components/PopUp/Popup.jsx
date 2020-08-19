@@ -10,25 +10,24 @@ const Wrapper = styled.div`
     position:absolute;
     top:0;
     overflow:hidden;
-
     z-index:2;
     left:0;
     min-width:100%;
-    min-height:100%;
+    min-height:${props => props.height};
     background-color: rgba(0,0,0,0.5);
 `
 const Content = styled.div`
     position:absolute;
     overflow:hidden;
-
+    z-index:4;
     top:0;
     right:0;
     background-color:#fff;
     margin: 0 auto;
     padding:1rem;
-    height:100vh;
     width:100%;
     height:100%;
+    min-height:100%;
     @media (min-width:768px){
         width:80%;
     }
@@ -37,7 +36,7 @@ const Content = styled.div`
 
 const Img = styled.img`
     /* height:100%; */
-    max-height:80vh;
+    /* max-height:60vh; */
     max-width:100%;
     border-radius:${props => props.round && '50%'};
 `
@@ -47,6 +46,7 @@ const Back = styled.button`
     }
 `
 const Section = styled.section`
+    height:100%;
     display:flex;
     align-items:center;
     justify-content:${props => props.justify};
@@ -57,11 +57,21 @@ const Grow = styled.div`
     display:flex;
     justify-content:${props => props.justify};
 `
+const Image = styled.section`
+    ${Section}
+    justify-content:${props => props.justify};
+    margin: ${props => props.margin};
+    background-image:url(${props => props.url});
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+`
 const Column = styled.div`
-    display:flex;
+    display:grid;
     height:100%;
-    flex-direction:column;
-    justify-content:space-between;
+    grid-template-rows:auto 1fr auto;
+    /* flex-direction:column; */
+    /* justify-content:space-between; */
 `
 const Popup = React.memo(({photo,loading}) => {
     const [goBack,setGoBack] = useState(false);
@@ -78,9 +88,9 @@ const Popup = React.memo(({photo,loading}) => {
         published:photo.created_at,
     }}
     return (
-        <Wrapper id="popUp" onClick={onClick}>
+        <Wrapper id="popUp" height={window.innerHeight+'px'} onClick={onClick}>
             {goBack && <Navigate to="../../" /> }
-            <Content onClick={(e)=>e.stopPropagation()}>
+            <Content   onClick={(e)=>e.stopPropagation()}>
                 <Outlet/>
 
                 {loading ? <Loader/> : <>
@@ -89,17 +99,16 @@ const Popup = React.memo(({photo,loading}) => {
                         <Link to={`/user/${photo.user.username}/photos`}>
                             <div style={{display:"flex",alignItems:"center"}}>
                                 <Img round src={photo.user.profile_image.medium}/>
-                                <h2 > {photo.user.name}</h2>
+                                <h2 style={{fontSize:"2rem"}}> {photo.user.name}</h2>
 
                             </div>
                         </Link>
                         <Back onClick={onClick}><FaArrowLeft/></Back>
-
                     </Section> 
 
-                    <Section justify='center' margin='1rem'>
-                        <Img src={photo.urls.regular}/>
-                    </Section>
+                    <Image url={photo.urls.regular} justify='center' margin='1rem'>
+                        {/* <Img src={photo.urls.regular}/> */}
+                    </Image>
                     <Section justify='space-between' margin="0 1rem">
                         <Grow>
                             {photo.location.title && 
